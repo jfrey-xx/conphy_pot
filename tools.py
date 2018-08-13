@@ -61,7 +61,7 @@ def get_stream(xdf_data, stream_name, markers_name = ""):
    # holder or markers
    res['markers'] = np.array([])
    res['nbmarkers'] = 0
-   res['markers_idf'] = np.array([])
+   res['markers_idx'] = np.array([])
    res['markers_shift'] = np.array([])
    
    # markers will be left empty if we don't find anything
