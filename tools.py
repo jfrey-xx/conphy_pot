@@ -187,7 +187,7 @@ def epoching(stream, labels, length):
     
     stream: dict as returned by get_stream()
     labels: list of markers of interest
-    length: epochs length (in seconds). WARNING: will use nominal sampling rate, not real sampling rate, for consistent length.
+    length: epochs length (in seconds). WARNING: will use REAL sampling rate, not nominal sampling rate, for better match.
     
     return: an array of epochs, sorted in time, each one being
     epoch['data']: array of data bins (values * chans). Shorten an epoch that would go beyond stream data size.
@@ -241,6 +241,7 @@ def merge_epochs_features(epochs, feats):
     
     NB: epochs and feats lists must have the same size
     TODO: use shape and codes if included?
+    FIXME: after repo split, might be now useless code,
     """
     export = pd.DataFrame()
     if len(epochs) != len(feats):
