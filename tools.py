@@ -10,11 +10,12 @@ import warnings
 
 # TODO: consider shape as a stream (with a dedicated filter)?
 
-def get_stream(xdf_data, stream_name, markers_name = ""):
-   """ Returning selected stream + marker
+def get_stream(xdf_data, stream_name, markers_name = "", stream_type = None, markers_type = None):
+   """ Returning *first* selected stream + marker
    xdf_data: structure returned by load_xdf
    stream_name: stream to fetch from data
    markers_name: if set, will as well return marker
+   stream_type, markers_type: if set, will also filter by stream type
    
    Returns a dict with keys:
    data: nump array containing time series
@@ -41,9 +42,11 @@ def get_stream(xdf_data, stream_name, markers_name = ""):
    # get the stream of interest
    for stream in xdf_data[0]:
        if stream['info']['name'][0] == stream_name:
-           data_stream = stream
+           if stream_type is None or stream_type == stream['info']['type'][0]:
+               data_stream = stream
        elif markers_name != "" and stream['info']['name'][0] == markers_name:
-           markers_stream = stream
+           if markers_type is None or markers_type == stream['info']['type'][0]:
+               markers_stream = stream
 
    # at least we should get the stream by now
    if data_stream == None:
