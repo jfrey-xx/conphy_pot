@@ -23,6 +23,7 @@ def get_stream(xdf_data, stream_name, markers_name = "", stream_type = None, mar
    nbchans: number of channels in data
    srate: declared sampling rate of the stream
    real_srate: real sampling rate of the whole stream
+   xdf_real_srate: real sampling rate of the whole stream, as computed by pyxdf (can handle better change of clock)
    markers_name: optionnal list of markers
    nbmarkers: how many of them
    markers_idx: corresponding index of the markers in data (will be adjusted closest to timestamp)
@@ -60,7 +61,7 @@ def get_stream(xdf_data, stream_name, markers_name = "", stream_type = None, mar
    time_range = res['timestamps'][-1] - res['timestamps'][0]
    nb_data = res['data'].shape[0]
    res['real_srate'] = float(nb_data) / time_range
-   
+   res['xdf_real_srate'] = data_stream['info']['effective_srate']
    # holder or markers
    res['markers'] = np.array([])
    res['nbmarkers'] = 0
